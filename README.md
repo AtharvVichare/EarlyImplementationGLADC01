@@ -1,20 +1,52 @@
-# Data-Preprocessing-for-Rnd-LHC-Olympics-Dataset
-This project provides a specialized preprocessing pipeline for the RnD Olympics Dataset 2020, designed to transform raw particle physics event data into graph-structured formats suitable for GNN. By leveraging jet clustering and k-Nearest Neighbors (k-NN) graph construction.
-Project Overview: RnD Olympics 2020 Graph Preprocessing
-This repository contains a pipeline to preprocess the RnD Olympics 2020 dataset, specifically focusing on converting event-level particle data into PyTorch Geometric (PyG) data objects.
-Dataset Specifications
-Total Events: 1.1 million events (1,000,000 SM and 100,000 BSM).
-Data Models: Includes both Standard Model (SM) and Beyond Standard Model (BSM) physics.
-Input Structure: Each row in the raw dataset represents a single whole event.
-Particle Capacity: Each event row contains data for up to 700 particles, including transverse momentum ($p_T$), pseudorapidity ($\eta$), azimuthal angle ($\phi$), and mass ($m$).
-Preprocessing Pipeline
-The pipeline follows a structured four-step process to prepare data for model training:
-1.Event-Wise Extraction: Individual particles are extracted from the raw 1D row format.
-2.Padding Removal: All zero-padded entries used for row-length consistency are filtered out.
-3.Jet Clustering: Particles are clustered into jets using the anti-$k_T$ algorithm with a radius of $R=1$ via the pyjet library.
-4.Graph Construction: For each clustered jet, a graph is generated using the k-NN algorithm with a connectivity of $k=8$.
-Output Format
-The final processed output is wrapped as a PyTorch Geometric Data object with the following attributes:
-x: Node feature matrix containing particle kinematics ($p_T, \eta, \phi$).
-edge_index: Graph connectivity in COO format.
-y: Event labels.
+# RnD Olympics 2020: Graph Preprocessing Pipeline
+
+[cite_start]This repository contains the preprocessing workflow for the **RnD Olympics Dataset 2020**[cite: 1]. [cite_start]The pipeline transforms raw, tabular particle physics data into graph-structured objects suitable for Geometric Deep Learning (GDL)[cite: 2, 46].
+
+---
+
+## 1. Dataset Overview
+[cite_start]The dataset consists of simulated high-energy physics events used to train models for anomaly detection and event classification[cite: 1, 30].
+
+* **Total Events**: 1.1 million total events.
+* [cite_start]**Standard Model (SM)**: 1,000,000 events used for baseline training[cite: 10, 11, 30].
+* [cite_start]**Beyond Standard Model (BSM)**: 100,000 events[cite: 10, 12].
+
+---
+
+## 2. Data Structure
+[cite_start]The raw dataset is stored in a structured tabular format where each row represents an entire event[cite: 14, 23].
+
+* [cite_start]**Event Capacity**: Each row (event) contains data for up to **700 particles**[cite: 14, 16].
+* [cite_start]**Particle Features**: Each particle is defined by three kinematic variables: transverse momentum ($p_T$), pseudorapidity ($\eta$), and azimuthal angle ($\phi$)[cite: 14, 45].
+* [cite_start]**Padding**: Events with fewer than 700 particles are filled with **zero padding** to maintain consistent row length[cite: 28, 29].
+
+---
+
+## 3. Preprocessing Workflow
+[cite_start]The transformation from raw rows to graphs follows these sequential steps[cite: 27]:
+
+### Step 1: Extraction & Filtering
+* [cite_start]**Extraction**: Particles are extracted from the raw dataset on an event-by-event basis[cite: 33, 34].
+* [cite_start]**Zero-Padding Removal**: All $(0, 0, 0)$ entries are stripped during extraction to isolate actual particle hits[cite: 28, 29].
+
+### Step 2: Jet Clustering
+* [cite_start]**Algorithm**: The **anti-$k_T$** clustering algorithm is used to group particles into jets[cite: 35, 36].
+* **Parameters**: Radius parameter $R = 1$[cite: 37].
+* [cite_start]**Tool**: Implementation via the `pyjet` library[cite: 37].
+
+### Step 3: Graph Construction
+* [cite_start]**Algorithm**: A graph is built for each jet using the **k-Nearest Neighbors (k-NN)** algorithm[cite: 39, 40].
+* **Connectivity**: Each node is connected to its $k=8$ nearest neighbors[cite: 42].
+
+---
+
+## 4. Output Representation
+The final processed data is wrapped as a **PyTorch Geometric (PyG)** `Data` object[cite: 46]:
+
+* [cite_start]**Node Features (`x`)**: A matrix containing $[p_T, \eta, \phi]$ for each particle[cite: 45].
+* **Edge Index (`edge_index`)**: A graph connectivity matrix in COO format[cite: 46].
+* **Labels (`y`)**: Truth labels for event classification[cite: 45, 46].
+
+---
+
+> **Note**: This pipeline is optimized for training on Standard Model (SM) backgrounds while remaining compatible with BSM signal testing[cite: 7, 30].
