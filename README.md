@@ -10,6 +10,9 @@
 
 GlAD-SCN detects anomalous jet events at the LHC by learning what a normal Standard Model (SM) jet looks like in graph space, then flagging jets that deviate from that learned distribution at inference time. The model combines a dual-graph encoder (clean + weight-perturbed), a graph autoencoder, SimCLR contrastive learning, and a representation error anomaly score — all without ever using BSM labels during training.
 
+**Imp Note: Accuarcy , AUC and other metrics can't be improved unless contrastive loss converges, I have tried to converge Simclr loss( it converges but require high computation). This early implementation isn't able to optimally converge the contrastive loss, but with increased computational power I can converge the loss optimally, and even though the model isn't at full potential it is still successful in mapping original and reconstructed graphs on latent space and also making a distance in the different graphs.** 
+
+
 **Dataset:** LHC Olympics 2020 R&D Dataset (`events_anomalydetection_v2.h5`, Zenodo DOI: 10.5281/zenodo.4536377)  
 **Framework:** PyTorch · PyTorch Geometric  
 **Phase:** 1 (ChebNet backbone) — Phase 2 (Stable ChebNet + improvements) in progress
