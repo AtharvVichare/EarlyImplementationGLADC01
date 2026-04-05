@@ -1,6 +1,6 @@
 # GlAD-SCN — Graph-Level Anomaly Detection via Stable ChebNet
 
-> **GSoC 2026 · ML4Sci · Phase 1 Implementation**  
+> ** 2026 · ML4Sci · Phase 1 Early Implementation**  
 > Unsupervised graph-level anomaly detection for new physics searches at the LHC.  
 > Trained exclusively on Standard Model jets — no BSM signal seen during training.
 
