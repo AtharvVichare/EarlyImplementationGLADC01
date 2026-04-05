@@ -36,6 +36,7 @@ far-away inputs.
 Discretising with forward Euler and adding a damping term γI yields the Stable-ChebNet update:
 <img width="985" height="155" alt="image" src="https://github.com/user-attachments/assets/339d5451-d058-4c6f-9592-6be3fb70406e" />
 where ϵ > 0 is the step size. Theorem 4 proves second-order stability:
+
 <img width="445" height="135" alt="image" src="https://github.com/user-attachments/assets/f225e9c7-f106-4dc2-b947-7844da18e746" />
 
 
